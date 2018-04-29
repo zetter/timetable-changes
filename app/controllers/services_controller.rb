@@ -1,5 +1,9 @@
 class ServicesController < ApplicationController
   def index
+    redirect_to service_path(params[:from], params[:to], params[:time])
+  end
+
+  def show
   end
 
   def json

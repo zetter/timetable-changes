@@ -1,0 +1,17 @@
+<h1>Timetable Change Visualizer</h1>
+<p>
+  Lots of rail timetables are changing in May 2018.
+  This tool helps to visualize the service the current and new service patterns.
+</p>
+
+<form action="<%= services_path %>" method="get">
+  I am going from
+  <%= text_field_tag(:from, '', size: 6) %>
+  to
+  <%= text_field_tag(:to, '', size: 6) %>
+  on
+  <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'])) %>
+  at around
+  <%= select_tag("time", times_for_select) %>
+  <%= submit_tag %>
+</form>
