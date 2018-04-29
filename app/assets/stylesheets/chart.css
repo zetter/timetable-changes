@@ -1,0 +1,42 @@
+svg {
+  font: 13px sans-serif;
+  display: block;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.station line {
+  stroke: #ddd;
+  stroke-dasharray: 1,1;
+  shape-rendering: crispEdges;
+}
+
+.station text {
+  text-anchor: end;
+}
+
+.train line {
+  stroke-width: 1.5px;
+}
+
+.train circle {
+  fill: #777;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
