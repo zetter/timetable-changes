@@ -1,0 +1,45 @@
+body {
+  margin: 30px;
+  font-size: 1.3em;
+  line-height: 1.3em;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: 30px;
+}
+
+p {
+  margin-bottom: 30px;
+}
+
+form {
+  line-height: 1.5em;
+  margin-bottom: 2em;
+}
+
+input, select {
+  font-size: 1em;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.submit-wrapper {
+  margin-top: 20px;
+}
+
+.btn {
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  background: #3498db;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
