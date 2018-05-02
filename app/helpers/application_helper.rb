@@ -26,6 +26,6 @@ module ApplicationHelper
       ['9pm', '21:00'],
       ['10pm', '22:00'],
       ['11pm', '23:00']
-    ], '08:00')
+    ], params[:time] || '08:00')
   end
 end

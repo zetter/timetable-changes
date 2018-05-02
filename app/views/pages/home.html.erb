@@ -4,13 +4,19 @@
   This tool helps to compare the current and new services.
 </p>
 
+<% if flash[:alert] %>
+  <div class="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
 <form action="<%= services_path %>" method="get">
   I am going from
-  <%= text_field_tag(:from, '', size: 5, placeholder: "HIT") %>
+  <%= text_field_tag(:from, params[:from], size: 5, placeholder: "HIT") %>
   to
-  <%= text_field_tag(:to, '', size: 5,  placeholder: "KGX") %>
+  <%= text_field_tag(:to, params[:to], size: 5,  placeholder: "KGX") %>
   on
-  <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'])) %>
+  <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'], params[:day] || 'weekday')) %>
   at around
   <%= select_tag("time", times_for_select) %>
   <div class="submit-wrapper">

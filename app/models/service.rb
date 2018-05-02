@@ -1,4 +1,6 @@
 class Service
+  class ApiError < StandardError; end
+
   def self.services(from, to, date, time)
     params = {
       app_id: ENV['app_id'],
@@ -23,7 +25,11 @@ class Service
     end
 
     result = JSON.parse(body)
-    result['departures']['all'].map{|attributes| new(from, to, date, attributes) }
+    if result['error']
+      raise ApiError.new(result['error'])
+    else
+      result['departures']['all'].map{|attributes| new(from, to, date, attributes) }
+    end
   end
 
   attr_reader :from, :to

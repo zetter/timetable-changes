@@ -1,6 +1,13 @@
 class ServicesController < ApplicationController
   def index
-    redirect_to service_path(params[:from], params[:to], params[:time])
+    from = params.fetch(:from, '').upcase.strip
+    to = params.fetch(:to, '').upcase.strip
+    if from.length != 3 || to.length != 3
+      flash[:alert] = 'Please use 3-letter station codes.'
+      render 'pages/home'
+    else
+      redirect_to service_path(params[:from], params[:to], params[:time])
+    end
   end
 
   def show
@@ -44,5 +51,7 @@ class ServicesController < ApplicationController
     };
 
     render json: data
+  rescue Service::ApiError
+    render json: {error: true}
   end
 end

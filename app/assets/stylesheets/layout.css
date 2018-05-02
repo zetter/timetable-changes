@@ -30,6 +30,18 @@ input, select {
   margin-top: 20px;
 }
 
+.alert {
+  margin-bottom: 2em;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  border: 2px solid red;
+  border-radius: 5px;
+  width: 300px
+  text-align: center;
+}
+
 .btn {
   border: none;
   color: #ffffff;
