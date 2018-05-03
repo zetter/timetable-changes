@@ -22,7 +22,8 @@ var parseTime = function(s) {
   return t;
 }
 
-var drawGraph = function(data, stations, services, topAxis) {
+var drawGraph = function(data, stations, services, newTimetable) {
+var topAxis = !newTimetable;
   if (topAxis) {
     var topMargin = 30;
   } else {
@@ -55,6 +56,13 @@ var drawGraph = function(data, stations, services, topAxis) {
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.append("text")
+   .attr("text-anchor", "middle")
+   .attr("transform", `translate(-20,${height/2}) rotate(-90)`)  // centre below axis
+   .text(newTimetable ? "New" : "Current")
+   .style("font-size", '16px')
+   .style('font-weight', 'bold');
 
   svg.append("defs").append("clipPath")
       .attr("id", "clip")
@@ -152,7 +160,7 @@ d3.json(d3.select(".chart-container").attr('data-url'), function(error, data) {
   if (data.error) {
     d3.select("body").insert("div", 'footer').attr('class', 'alert').text('Error: Please check your 3-letter station codes are correct and try again.')
   } else {
-    drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), true);
-    drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), false);
+    drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), false);
+    drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), true);
   }
 });
