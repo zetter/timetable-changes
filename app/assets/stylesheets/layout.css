@@ -64,6 +64,8 @@ input, select {
   background: #3498db;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
 .btn:hover {
