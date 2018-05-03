@@ -101,11 +101,20 @@ var drawGraph = function(data, stations, services, topAxis) {
     .enter().append("g")
 
   var services = train.selectAll("line")
-      .data(function(d) { return [d] })
+      .data(function(d) {
+        d.departureX = x(parseTime(d.departure))
+        d.departureY = y(stationDistance(stations, d.from))
+        d.arrivalX = x(parseTime(d.arrival));
+        d.arrivalY = y(stationDistance(stations, d.to));
+        d.midX = d.departureX + (d.arrivalX - d.departureX) / 2
+        d.midY = d.departureY + (d.arrivalY - d.departureY) / 2
+        d.rotation = Math.atan((d.arrivalY - d.departureY) / (d.arrivalX - d.departureX)) * 180 / Math.PI
+        return [d]
+      })
     .enter()
 
   services.append('path')
-    .attr('d', function(d) { return `M ${x(parseTime(d.departure))} ${y(stationDistance(stations, d.from))} L ${x(parseTime(d.arrival))} ${y(stationDistance(stations, d.to))}`})
+    .attr('d', function(d) { return `M ${d.departureX} ${d.departureY} L ${d.arrivalX} ${d.arrivalY}`})
     .attr('id', function(d) { return `${d.departure}-${d.arrival}`})
     .style("stroke", function(d) { return d.new_timetable ? '#984EA3' : '#377EB8' })
     .style("stroke-width", '4px')
@@ -113,15 +122,14 @@ var drawGraph = function(data, stations, services, topAxis) {
     .style('stroke-linecap', "round")
 
   services.append('text')
-    .append('textPath')
     .text(function(d) { return d.length + 'm'} )
-    .attr('href', function(d) { return `#${d.departure}-${d.arrival}`})
-    .attr('startOffset', '50%')
+    .attr('x', function(d) { return d.midX })
+    .attr('y', function(d) { return d.midY })
+    .attr('transform', function(d) { return `rotate(${d.rotation}, ${d.midX}, ${d.midY})`})
     .attr('text-anchor', 'middle')
     .style("opacity", function(d) { return d.overtaken ? '0.2' : '1' })
     .style('font-weight', 'bold')
-    .style('fill', '#000')
-    .attr('baseline-shift', '3px');
+    .attr('baseline-shift', '4px');
 }
 
 d3.json(d3.select(".chart-container").attr('data-url'), function(error, data) {
