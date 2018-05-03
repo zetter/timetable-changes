@@ -85,3 +85,8 @@ footer {
   margin-top: 20px;
   font-size: 0.8em;
 }
+
+.loading {
+  font-size: 3em;
+  padding: 60px 0;
+}

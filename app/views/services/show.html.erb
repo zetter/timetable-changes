@@ -10,6 +10,10 @@
   <%= submit_tag '🚂 Show me different trains', class: 'btn' %>
 </form>
 
+<div class="loading">
+  Loading...
+</div>
+
 <div class="chart-container" data-url="<%= services_json_path(params[:from], params[:to], params[:day], params[:time]) %>">
 </div>
 

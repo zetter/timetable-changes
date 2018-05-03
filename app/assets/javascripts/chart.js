@@ -160,6 +160,7 @@ d3.json(d3.select(".chart-container").attr('data-url'), function(error, data) {
   if (data.error) {
     d3.select("body").insert("div", 'footer').attr('class', 'alert').text('Error: Please check your 3-letter station codes are correct and try again.')
   } else {
+    d3.select(".loading").remove();
     drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), false);
     drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), true);
   }
