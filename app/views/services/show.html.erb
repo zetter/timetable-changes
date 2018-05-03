@@ -7,7 +7,7 @@
   <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'], params[:day] || 'weekday')) %>
   at around
   <%= select_tag("time", times_for_select) %>
-  <%= submit_tag 'Show different services', class: 'btn' %>
+  <%= submit_tag '🚂 Show me different trains', class: 'btn' %>
 </form>
 
 <div class="chart-container" data-url="<%= services_json_path(params[:from], params[:to], params[:day], params[:time]) %>">
