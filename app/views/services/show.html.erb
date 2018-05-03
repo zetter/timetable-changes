@@ -1,5 +1,5 @@
 <form action="<%= services_path %>" method="get">
-  Showing a journey from
+  Showing services from
   <%= text_field_tag(:from, params[:from], size: 5, placeholder: "HIT") %>
   to
   <%= text_field_tag(:to, params[:to], size: 5,  placeholder: "KGX") %>
@@ -7,7 +7,7 @@
   <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'], params[:day] || 'weekday')) %>
   at around
   <%= select_tag("time", times_for_select) %>
-  <%= submit_tag 'Show another journey', class: 'btn' %>
+  <%= submit_tag 'Show different services', class: 'btn' %>
 </form>
 
 <div class="chart-container" data-url="<%= services_json_path(params[:from], params[:to], params[:time]) %>">
