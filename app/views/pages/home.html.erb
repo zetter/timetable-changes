@@ -16,7 +16,7 @@
   to
   <%= text_field_tag(:to, params[:to], size: 5,  placeholder: "KGX") %>
   on
-  <%= select_tag("day", options_for_select([['a weekday', 'weekday'], 'Saturday', 'Sunday'], params[:day] || 'weekday')) %>
+  <%= select_tag("day", options_for_select([['a weekday', 'weekday'], ['Saturday', 'saturday'], ['Sunday', 'sunday']], params[:day] || 'weekday')) %>
   at around
   <%= select_tag("time", times_for_select) %>
   <div class="submit-wrapper">
