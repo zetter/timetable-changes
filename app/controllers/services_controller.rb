@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
       flash[:alert] = 'Please use 3-letter station codes.'
       render 'pages/home'
     else
-      redirect_to service_path(from, to, params[:time])
+      redirect_to service_path(from, to, params[:day], params[:time])
     end
   end
 
@@ -14,9 +14,6 @@ class ServicesController < ApplicationController
   end
 
   def json
-    old_date = '2018-04-24'
-    new_date = '2018-05-22'
-
     @services = Service.services(params[:from], params[:to], old_date, params[:time])
     @services += Service.services(params[:from], params[:to], new_date, params[:time])
 
@@ -54,4 +51,20 @@ class ServicesController < ApplicationController
   rescue Service::ApiError
     render json: {error: true}
   end
+
+  DATES = {
+    'weekday' => ['2018-04-24', '2018-05-22'],
+    'saturday' => ['2018-04-21', '2018-05-26'],
+    'sunday' => ['2018-04-22', '2018-05-27']
+  }
+
+  def old_date
+    DATES[params[:day].downcase].first
+  end
+  helper_method :old_date
+
+  def new_date
+    DATES[params[:day].downcase].second
+  end
+  helper_method :new_date
 end
