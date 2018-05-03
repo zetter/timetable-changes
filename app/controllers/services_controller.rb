@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
       flash[:alert] = 'Please use 3-letter station codes.'
       render 'pages/home'
     else
-      redirect_to service_path(params[:from], params[:to], params[:time])
+      redirect_to service_path(from, to, params[:time])
     end
   end
 
