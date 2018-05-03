@@ -10,5 +10,11 @@
   <body>
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <footer>
+      Made by <a href="https://chriszetter.com/">Chris Zetter</a>, train times supplied by <a href="https://www.transportapi.com/">transportapi</a>.<br/>
+      If something look wrong, please <a href="https://twitter.com/messages/compose?recipient_id=19557235">let me know</a>.<br/>
+      This is a toy project, if you’re planning a journey please check times on a <a href="http://www.nationalrail.co.uk/">real website</a>.
+    </footer>
   </body>
 </html>

@@ -150,7 +150,7 @@ var drawGraph = function(data, stations, services, topAxis) {
 
 d3.json(d3.select(".chart-container").attr('data-url'), function(error, data) {
   if (data.error) {
-    d3.select("body").append("div").attr('class', 'alert').text('Error: Please check your 3-letter station codes are correct and try again.')
+    d3.select("body").insert("div", 'footer').attr('class', 'alert').text('Error: Please check your 3-letter station codes are correct and try again.')
   } else {
     drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), true);
     drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), false);

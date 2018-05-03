@@ -72,3 +72,11 @@ input, select {
   background: #3cb0fd;
   text-decoration: none;
 }
+
+footer {
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: #666;
+}
