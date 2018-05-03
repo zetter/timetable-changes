@@ -1,5 +1,16 @@
 var formatTime = d3.time.format("%H:%M");
 
+function getWidth() {
+  return Math.max(
+    document.body.scrollWidth,
+    document.documentElement.scrollWidth,
+    document.body.offsetWidth,
+    document.documentElement.offsetWidth,
+    document.documentElement.clientWidth
+  );
+}
+
+
 var stationDistance = function(stations, station_code) {
   matched_station = stations.find(function(station) { return station.name === station_code } );
   return matched_station.distance
@@ -18,9 +29,14 @@ var drawGraph = function(data, stations, services, topAxis) {
     var topMargin = 5;
   }
 
+  var pageWidth = getWidth();
   var margin = {top: topMargin, right: 30, bottom: 20, left:50},
-      width = 600 - margin.left - margin.right,
-      height = 200 - margin.top - margin.bottom;
+      width = pageWidth - margin.left*2 - margin.right*2;
+
+  width = Math.max(width, 600);
+  width = Math.min(width, 900);
+
+  var height = (width / 3) - margin.top - margin.bottom;
 
   var x = d3.time.scale()
       .domain([parseTime(data.domain_start), parseTime(data.domain_end)])
