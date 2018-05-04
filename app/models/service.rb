@@ -50,7 +50,7 @@ class Service
   end
 
   def arrival_time
-    @attributes['station_detail']['calling_at'].first['aimed_arrival_time']
+    @attributes['station_detail']['calling_at'].last['aimed_arrival_time']
   end
 
   def overtaken?(services)
