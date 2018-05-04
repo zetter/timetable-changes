@@ -7,7 +7,7 @@ class Service
       app_key: ENV['app_key'],
       calling_at: to,
       from_offset: '-PT01:00:00',
-      to_offset: 'PT01:00:00',
+      to_offset: 'PT00:59:00',
       station_detail: 'calling_at',
       train_status: 'passenger'
     }
