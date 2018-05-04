@@ -2,11 +2,17 @@ class Service
   class ApiError < StandardError; end
 
   def self.services(from, to, date, time)
+    if time == '00:00'
+      from_offset = 'PT00:00:00'
+    else
+      from_offset = '-PT01:00:00'
+    end
+
     params = {
       app_id: ENV['app_id'],
       app_key: ENV['app_key'],
       calling_at: to,
-      from_offset: '-PT01:00:00',
+      from_offset: from_offset,
       to_offset: 'PT00:59:00',
       station_detail: 'calling_at',
       train_status: 'passenger'
