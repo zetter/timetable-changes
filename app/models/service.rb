@@ -25,6 +25,10 @@ class Service
     end
 
     result = JSON.parse(body)
+
+    Rails.logger.debug(url)
+    Rails.logger.debug(JSON.pretty_generate(result))
+
     if result['error']
       raise ApiError.new(result['error'])
     else
