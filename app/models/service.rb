@@ -8,12 +8,18 @@ class Service
       from_offset = '-PT01:00:00'
     end
 
+    if time == '23:00'
+      to_offset = 'PT00:59:00'
+    else
+      to_offset = 'PT01:00:00'
+    end
+
     params = {
       app_id: ENV['app_id'],
       app_key: ENV['app_key'],
       calling_at: to,
       from_offset: from_offset,
-      to_offset: 'PT00:59:00',
+      to_offset: to_offset,
       station_detail: 'calling_at',
       train_status: 'passenger'
     }
