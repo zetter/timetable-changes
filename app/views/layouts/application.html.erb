@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-18262427-2"></script>
+    <%- if @use_image -%>
+      <link rel="img_src" href="<%= asset_path('example.png') %>" />
+    <%- end -%>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
