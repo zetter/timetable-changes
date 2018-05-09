@@ -30,16 +30,21 @@ class ServicesController < ApplicationController
       stations << {name: 'STP', distance: 55}
     end
 
+    start_time = @services.map(&:departure_time).min
+    end_time = @services.map(&:arrival_time).max
+
     data = {
-      domain_start: @services.map(&:departure_time).min,
-      domain_end: @services.map(&:arrival_time).max,
+      current_start: Time.zone.parse("#{old_date} #{start_time}"),
+      current_end: Time.zone.parse("#{old_date} #{end_time}"),
+      new_start: Time.zone.parse("#{new_date} #{start_time}"),
+      new_end: Time.zone.parse("#{new_date} #{end_time}"),
       stations: stations,
       services: @services.map{|service|
         {
           from: service.from,
-          departure: service.departure_time,
+          departure: service.departure_datetime,
           to: service.to,
-          arrival: service.arrival_time,
+          arrival: service.arrival_datetime,
           overtaken: service.overtaken?(@services),
           new_timetable: service.new_timetable?,
           length: service.length

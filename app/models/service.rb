@@ -47,12 +47,24 @@ class Service
   def initialize(from, to, date, attributes)
     @from = from
     @to = to
-    @date = date
+    @date = Date.parse(date)
     @attributes = attributes
   end
 
   def new_timetable?
-    @date >= '2018-05-20'
+    @date >= Date.parse('2018-05-20')
+  end
+
+  def departure_datetime
+    Time.zone.parse("#{@date} #{departure_time}")
+  end
+
+  def arrival_datetime
+    if departure_time < arrival_time
+      Time.zone.parse("#{@date} #{arrival_time}")
+    else
+      Time.zone.parse("#{@date + 1.day} #{arrival_time}")
+    end
   end
 
   def departure_time
@@ -67,12 +79,12 @@ class Service
     services.any? {|service|
       service.new_timetable? == new_timetable? &&
       service != self &&
-      service.departure_time > departure_time &&
-      service.arrival_time < arrival_time
+      service.departure_datetime > departure_datetime &&
+      service.arrival_datetime < arrival_datetime
     }
   end
 
   def length
-    ((Time.parse(arrival_time) - Time.parse(departure_time)) / 60).round
+    ((arrival_datetime - departure_datetime) / 60).round
   end
 end

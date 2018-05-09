@@ -1,4 +1,5 @@
-var formatTime = d3.time.format("%H:%M");
+var formatTime = function(date) {return moment.utc(date).format('HH:mm')};
+var parseIsoTime = moment.utc
 
 function getWidth() {
   return Math.max(
@@ -16,13 +17,7 @@ var stationDistance = function(stations, station_code) {
   return matched_station.distance
 }
 
-var parseTime = function(s) {
-  var t = formatTime.parse(s);
-  if (t != null && t.getHours() < 3) t.setDate(t.getDate() + 1);
-  return t;
-}
-
-var drawGraph = function(data, stations, services, newTimetable) {
+var drawGraph = function(data, stations, services, newTimetable, domainStart, domainEnd) {
 var topAxis = !newTimetable;
   if (topAxis) {
     var topMargin = 30;
@@ -40,7 +35,7 @@ var topAxis = !newTimetable;
   var height = (width / 3) - margin.top - margin.bottom;
 
   var x = d3.time.scale()
-      .domain([parseTime(data.domain_start), parseTime(data.domain_end)])
+      .domain([parseIsoTime(domainStart), parseIsoTime(domainEnd)])
       .range([0, width]);
 
   var y = d3.scale.linear()
@@ -126,9 +121,11 @@ var topAxis = !newTimetable;
 
   var services = train.selectAll("line")
       .data(function(d) {
-        d.departureX = x(parseTime(d.departure))
+        console.log(d.departure)
+        console.log(parseIsoTime(d.departure))
+        d.departureX = x(parseIsoTime(d.departure))
         d.departureY = y(stationDistance(stations, d.from))
-        d.arrivalX = x(parseTime(d.arrival));
+        d.arrivalX = x(parseIsoTime(d.arrival));
         d.arrivalY = y(stationDistance(stations, d.to));
         d.midX = d.departureX + (d.arrivalX - d.departureX) / 2
         d.midY = d.departureY + (d.arrivalY - d.departureY) / 2
@@ -161,7 +158,7 @@ d3.json(d3.select(".chart-container").attr('data-url'), function(error, data) {
     d3.select("body").insert("div", 'footer').attr('class', 'alert').text('Error: Please check your 3-letter station codes are correct and try again.')
   } else {
     d3.select(".loading").remove();
-    drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), false);
-    drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), true);
+    drawGraph(data, data.stations, data.services.filter(service => !service.new_timetable), false, data.current_start, data.current_end);
+    drawGraph(data, data.stations, data.services.filter(service => service.new_timetable), true, data.new_start, data.new_end);
   }
 });
