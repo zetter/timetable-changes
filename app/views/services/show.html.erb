@@ -17,7 +17,8 @@
 <div class="chart-container" data-url="<%= services_json_path(params[:from], params[:to], params[:day], params[:time]) %>">
 </div>
 
-<p class="comparing">Comparing current services on <%= old_date %> to new services on <%= new_date %>.</p>
+<p class="comparing">Comparing current services on <%= old_date %> to new services on <%= new_date %>.<br>
+Services may not show if there's planned engineering work.</p></p>
 
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
