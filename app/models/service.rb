@@ -44,7 +44,7 @@ class Service
     if result['error']
       raise ApiError.new(result['error'])
     else
-      result['departures']['all'].map{|attributes| new(from, to, date, attributes) }
+      result['departures']['all'].map{|attributes| new(from, to, date, attributes) }.select(&:has_arrival_time?)
     end
   end
 
@@ -63,6 +63,10 @@ class Service
 
   def departure_datetime
     Time.zone.parse("#{@date} #{departure_time}")
+  end
+
+  def has_arrival_time?
+    arrival_time.present?
   end
 
   def arrival_datetime
