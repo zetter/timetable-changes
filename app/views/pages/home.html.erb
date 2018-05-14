@@ -6,7 +6,7 @@
 
 <% if flash[:alert] %>
   <div class="alert">
-    <%= flash[:alert] %>
+    <%= flash.discard[:alert] %>
   </div>
 <% end %>
 
