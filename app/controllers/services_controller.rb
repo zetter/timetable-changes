@@ -3,7 +3,12 @@ class ServicesController < ApplicationController
     from = params.fetch(:from, '').upcase.strip
     to = params.fetch(:to, '').upcase.strip
     if from.length != 3 || to.length != 3
-      flash[:alert] = 'Please use 3-letter station codes.'
+      flash[:alert] = view_context.safe_join([
+        "Please use 3-letter station codes.",
+        view_context.tag('br'),
+        view_context.link_to("You can look up codes on National Rail", "http://www.nationalrail.co.uk/stations_destinations/default.aspx"),
+        '.'
+      ])
       render 'pages/home'
     else
       redirect_to service_path(from, to, params[:day], params[:time])
