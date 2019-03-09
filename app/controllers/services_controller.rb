@@ -28,9 +28,11 @@ class ServicesController < ApplicationController
     ]
 
     if params[:from] == 'KGX'
+      @services += Service.services('STP', params[:to], old_date, params[:time])
       @services += Service.services('STP', params[:to], new_date, params[:time])
       stations << {name: 'STP', distance: 5}
     elsif params[:to] == 'KGX'
+      @services += Service.services(params[:from], 'STP', old_date, params[:time])
       @services += Service.services(params[:from], 'STP', new_date, params[:time])
       stations << {name: 'STP', distance: 55}
     end
@@ -63,9 +65,9 @@ class ServicesController < ApplicationController
   end
 
   DATES = {
-    'weekday' => ['2018-04-24', '2018-05-22'],
-    'saturday' => ['2018-04-21', '2018-05-26'],
-    'sunday' => ['2018-04-22', '2018-05-27']
+    'weekday' => ['2019-05-13', '2019-05-20'],
+    'saturday' => ['2019-05-11', '2019-05-25'],
+    'sunday' => ['2019-05-12', '2019-05-26']
   }
 
   def old_date

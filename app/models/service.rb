@@ -58,7 +58,7 @@ class Service
   end
 
   def new_timetable?
-    @date >= Date.parse('2018-05-20')
+    @date >= Date.parse('2019-05-19')
   end
 
   def departure_datetime
